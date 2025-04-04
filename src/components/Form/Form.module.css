@@ -1,9 +1,22 @@
+.formContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: var(--spacing-xx-large);
+}
+
 .form {
     width: 100%;
+    max-width: 450px;
     height: auto;
     display: flex;
     flex-direction: column;
     gap: var(--spacing-xx-small);
+    padding: var(--spacing-medium) var(--spacing-small);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-small);
+    background-color: var(--form-color);
 }
 
 .formGroup {
@@ -21,13 +34,15 @@
     height: 40px;
     font-family: inherit;
     font-size: var(--font-medium);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-small);
 }
 
 .formInput {
     padding: 0 var(--spacing-x-small);
 }
 
-.fomrSelect {
+.formSelect {
     padding: 0 var(--spacing-xx-small);
 }
 
@@ -36,4 +51,11 @@
     font-size: var(--font-small);
     font-weight: 600;
     color: var(--error-color);
+}
+
+.formButtonContainer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: var(--spacing-small);
+    gap: var(--spacing-x-small);
 }

@@ -1,10 +1,14 @@
 :root {
     /****** background ******/
-    --background-color: #242424;
+    --background-color: #FFFFFF;
+
+    --form-color: #FFFFFF;
+
+    --border-color: #242424;
 
     /****** font color ******/
+    --font-color: #242424;
     --font-color-light: #FFFFFF;
-    --font-color-dark: #242424;
 
     /****** accent color ******/
     --accent-color: #147EFF;
@@ -13,10 +17,10 @@
     --error-color: #e52d2d;
 
     /****** interaction ******/
-    --hover-color: #fafafa;
-    --active-color: #f5f5f5;
-    --hover-color-accent: #0a78ff;
-    --active-color-accent: #0073ff;
+    --hover-color: #f5f5f5;
+    --active-color: #ebebeb;
+    --hover-color-accent: #0073ff;
+    --active-color-accent: #006aeb;
 
     /****** spacing ******/
     --spacing-xx-small: 0.25rem;
@@ -25,7 +29,7 @@
     --spacing-medium: 1rem;
     --spacing-large: 1.5rem;
     --spacing-x-large: 2rem;
-    --spacing-xx-large: 4rem;
+    --spacing-xx-large: 3rem;
 
     /****** border radius ******/
     --border-radius-small: 0.25rem;
@@ -42,4 +46,11 @@
     --heading-medium: 2rem;
     --heading-large: 2.25rem;
     --heading-x-large: 3rem;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background-color: #242424;
+        --font-color: #FFFFFF;
+    }
 }

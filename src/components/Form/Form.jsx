@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styles from './Form.module.css'
 
-const Form = () => {
+const Form = ({ closeExpenseForm }) => {
     const [errorMessages, setErrorMessages] = useState({});
     // validation
     const validateInput = (inputName, inputValue) => {
@@ -64,7 +64,7 @@ const Form = () => {
     }
 
     return(
-        <>
+        <div className={styles.formContainer}>
             <form className={styles.form}>
                 <div className={styles.formGroup}>
                     <label className={styles.formLabel} htmlFor="title">Title</label>
@@ -96,11 +96,11 @@ const Form = () => {
                     <p className={styles.formErrorMessage}>{errorMessages.category}</p>
                 </div>
                 <div className={styles.formButtonContainer}>
-                    <button type='button' className='secondary-button'>Cancel</button>
+                    <button type='button' className='secondary-button' onClick={closeExpenseForm}>Cancel</button>
                     <button type='submit' className='primary-button'>Add</button>
                 </div>
             </form>
-        </>
+        </div>
     )
 }
 

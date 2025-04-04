@@ -5,10 +5,23 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: var(--spacing-medium);
+    gap: var(--spacing-x-large);
+    padding-top: var(--spacing-x-large);
 }
 
 .headerTitle {
-    font-size: var(--heading-small);
-    color: var(--font-color-dark);
+    font-family: Montserrat, sans-serif;
+    font-size: var(--heading-medium);
+    font-weight: 800;
+    color: var(--font-color);
+}
+
+@media screen and (min-width: 768px) {
+    .header {
+        gap: var(--spacing-xx-large);
+    }
+
+    .headerTitle {
+        font-size: var(--heading-large);
+    }
 }

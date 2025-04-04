@@ -4,6 +4,12 @@
   font-weight: 400 600;
 }
 
+@font-face {
+  font-family: Montserrat;
+  src: url(../assets/fonts/Montserrat-VariableFont_wght.ttf);
+  font-weight: 400 900;
+}
+
 body {
   width: 100%;
   min-width: 350px;
@@ -27,6 +33,22 @@ button {
   color: var(--font-color-light);
 }
 
+.primary-button:hover {
+  background-color: var(--hover-color-accent);
+}
+
+.primary-button:active {
+  background-color: var(--active-color-accent);
+}
+
 .secondary-button {
   background-color: transparent;
+}
+
+.secondary-button:hover {
+  background-color: var(--hover-color);
+}
+
+.secondary-button:active {
+  background-color: var(--active-color);
 }

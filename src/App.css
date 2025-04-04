@@ -1,3 +1,4 @@
 #root {
   padding: var(--spacing-small);
+  background-color: var(--background-color);
 }

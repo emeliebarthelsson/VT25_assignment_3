@@ -4,9 +4,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: var(--spacing-x-large) 0;
 }
 
 .footerParagraph {
-    color: var(--font-color-dark);
+    color: var(--font-color);
     font-size: var(--font-medium);
 }
