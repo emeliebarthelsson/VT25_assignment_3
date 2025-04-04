@@ -1,0 +1,14 @@
+.header {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing-medium);
+}
+
+.headerTitle {
+    font-size: var(--heading-small);
+    color: var(--font-color-dark);
+}

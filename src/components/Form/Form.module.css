@@ -1,0 +1,30 @@
+.form {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-medium);
+}
+
+.formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-x-small);
+}
+
+.formLabel {
+    font-size: var(--font-medium);
+}
+
+.formInput,
+.formSelect {
+    height: 40px;
+}
+
+.formInput {
+    padding: 0 var(--spacing-x-small);
+}
+
+.fomrSelect {
+    padding: 0 var(--spacing-xx-small);
+}

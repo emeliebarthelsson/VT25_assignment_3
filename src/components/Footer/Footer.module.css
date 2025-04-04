@@ -1,0 +1,12 @@
+.footer {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footerParagraph {
+    color: var(--font-color-dark);
+    font-size: var(--font-medium);
+}
