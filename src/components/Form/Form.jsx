@@ -102,6 +102,7 @@ const Form = ({ closeExpenseForm, setExpenses }) => {
     return(
         <div className={styles.formContainer}>
             <form className={styles.form} onSubmit={handleSubmit}>
+                <h2>Add expense</h2>
                 <div className={styles.formGroup}>
                     <label className={styles.formLabel} htmlFor="title">Title</label>
                     <input className={styles.formInput} type="text" name='title' id='title' placeholder='Enter title' onChange={handleChange} onBlur={handleValidation} value={formData.title}/>

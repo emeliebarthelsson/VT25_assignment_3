@@ -9,6 +9,7 @@
 .form {
     width: 100%;
     max-width: 450px;
+    min-width: 350px;
     height: auto;
     display: flex;
     flex-direction: column;
@@ -17,6 +18,12 @@
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius-small);
     background-color: var(--form-color);
+}
+
+.form h2 {
+    text-align: center;
+    font-size: var(--heading-small);
+    padding-bottom: var(--spacing-medium);
 }
 
 .formGroup {

@@ -4,6 +4,7 @@ import Main from './components/Main/Main';
 import Footer from './components/Footer/Footer';
 import Form from './components/Form/Form';
 import { useEffect, useState } from 'react';
+import FormModal from './components/FormModal/FormModal';
 
 function App() {
   const [displayForm, setDisplayForm] = useState(false);
@@ -27,7 +28,7 @@ function App() {
   return (
     <>
       <Header openExpenseForm={ openExpenseForm }></Header>
-      {displayForm && <Form closeExpenseForm={ closeExpenseForm } setExpenses={ setExpenses } />}
+      {displayForm && <FormModal closeExpenseForm={ closeExpenseForm } setExpenses={ setExpenses } />}
       <Main expenses={ expenses }></Main>
       <Footer></Footer>
     </>

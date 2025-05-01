@@ -1,5 +1,6 @@
 .summaryContainer {
     width: 95%;
+    max-width: 1024px;
     height: auto;
     display: flex;
     justify-content: center;
@@ -7,7 +8,7 @@
     gap: var(--spacing-x-small);
     background-color: var(--form-color);
     border-radius: var(--border-radius-small);
-    padding: var(--spacing-small);
+    padding: var(--spacing-medium) 0;
 }
 
 .summaryContainer h2 {

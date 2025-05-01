@@ -2,6 +2,8 @@
     width: 100%;
     height: auto;
     display: flex;
+    flex-direction: column;
+    align-items: center;
     background-color: var(--form-color);
     border-radius: var(--border-radius-small);
     padding: var(--spacing-small);
@@ -9,8 +11,9 @@
 
 .itemContentGroup {
     display: flex;
-    flex-basis: 22%;
-    align-items: center;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: var(--spacing-small) 0;
     gap: var(--spacing-x-small);
 }
 
@@ -19,9 +22,46 @@
 }
 
 .itemButtonContainer {
-    flex-basis: 12%;
     display: flex;
-    justify-content: flex-end;
     align-items: center;
     gap: var(--spacing-x-small);
+    padding-top: var(--spacing-small);
+}
+
+@media screen and (min-width: 600px) {
+    .listItem {
+        flex-direction: row;
+    }
+
+    .itemContentGroup {
+        flex-direction: column;
+    }
+
+    .titleGroup {
+        flex-basis: 24%;
+    }
+
+    .amountGroup {
+        flex-basis: 20%;
+    }
+
+    .dateGroup {
+        flex-basis: 22%;
+    }
+
+    .categoryGroup {
+        flex-basis: 22%;
+    }
+
+    .itemButtonContainer {
+        flex-basis: 12%;
+        justify-content: flex-end;
+    }
+}
+
+@media screen and (min-width: 820px) {
+    .itemContentGroup {
+        flex-direction: row;
+        align-items: center;
+    }
 }

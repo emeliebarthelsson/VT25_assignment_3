@@ -3,19 +3,19 @@ import styles from './ExpenseItem.module.css'
 const ExpenseItem = ({ item }) => {
   return (
     <li className={styles.listItem}>
-        <div className={styles.itemContentGroup}>
+        <div className={`${styles.itemContentGroup} ${styles.titleGroup}`}>
             <p className={styles.itemContentHeading}>Title:</p>
             <p className={styles.itemContentText}>{item.title}</p>
         </div>
-        <div className={styles.itemContentGroup}>
+        <div className={`${styles.itemContentGroup} ${styles.amountGroup}`}>
             <p className={styles.itemContentHeading}>Amount:</p>
             <p className={styles.itemContentText}>{item.amount}</p>
         </div>
-        <div className={styles.itemContentGroup}>
+        <div className={`${styles.itemContentGroup} ${styles.dateGroup}`}>
             <p className={styles.itemContentHeading}>Date:</p>
             <p className={styles.itemContentText}>{item.date.slice(0, 10)}</p>
         </div>
-        <div className={styles.itemContentGroup}>
+        <div className={`${styles.itemContentGroup} ${styles.categoryGroup}`}>
             <p className={styles.itemContentHeading}>Category:</p>
             <p className={styles.itemContentText}>{item.category}</p>
         </div>
