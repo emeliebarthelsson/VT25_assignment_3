@@ -52,3 +52,14 @@ button {
 .secondary-button:active {
   background-color: var(--active-color);
 }
+
+.icon-button {
+  height: 48px;
+  width: 48px;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: var(--border-radius-small);
+  font-size: var(--font-medium);
+}

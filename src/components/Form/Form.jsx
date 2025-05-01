@@ -1,8 +1,16 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './Form.module.css'
+import { v4 as uuidv4 } from 'uuid';
 
-const Form = ({ closeExpenseForm }) => {
+const Form = ({ closeExpenseForm, setExpenses }) => {
     const [errorMessages, setErrorMessages] = useState({});
+    const [formData, setFormData] = useState({
+        title: "",
+        amount: "", 
+        date: "", 
+        category: ""
+    });
+
     // validation
     const validateInput = (inputName, inputValue) => {
         let isValid = true;
@@ -51,7 +59,8 @@ const Form = ({ closeExpenseForm }) => {
     }
 
     const handleChange = (e) => {
-
+        const { name, value } = e.target;
+        setFormData(prev => ({...prev, [name]: value}))
     }
 
     const handleValidation = (e) => {
@@ -60,30 +69,53 @@ const Form = ({ closeExpenseForm }) => {
     }
 
     const handleSubmit = (e) => {
+        e.preventDefault();
+        const hasEmptyFields = Object.values(formData).some(value => !value.trim());
+        const hasErrors = Object.values(errorMessages).some(message => message !== "");
+        if (hasEmptyFields || hasErrors) return;
 
+        const newExpense = {
+            id: uuidv4(),
+            ...formData
+        }
+
+        const existingExpenses = JSON.parse(localStorage.getItem("expenses")) || [];
+        const updatedExpenses = [...existingExpenses, newExpense];
+        localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
+        setExpenses(updatedExpenses);
+
+        // clear form
+        setFormData({
+            title: "",
+            amount: "",
+            date: "",
+            category: ""
+        })
+
+        closeExpenseForm();
     }
 
     return(
         <div className={styles.formContainer}>
-            <form className={styles.form}>
+            <form className={styles.form} onSubmit={handleSubmit}>
                 <div className={styles.formGroup}>
                     <label className={styles.formLabel} htmlFor="title">Title</label>
-                    <input className={styles.formInput} type="text" name='title' id='title' placeholder='Enter title'  onBlur={handleValidation}/>
+                    <input className={styles.formInput} type="text" name='title' id='title' placeholder='Enter title' onChange={handleChange} onBlur={handleValidation} value={formData.title}/>
                     <p className={styles.formErrorMessage}>{errorMessages.title}</p>
                 </div>
                 <div className={styles.formGroup}>
                     <label className={styles.formLabel} htmlFor="amount">Amount</label>
-                    <input className={styles.formInput} type="number" name='amount' id='amount' placeholder='Enter amount'  onBlur={handleValidation}/>
+                    <input className={styles.formInput} type="number" name='amount' id='amount' placeholder='Enter amount' onChange={handleChange} onBlur={handleValidation} value={formData.amount}/>
                     <p className={styles.formErrorMessage}>{errorMessages.amount}</p>
                 </div>
                 <div className={styles.formGroup}>
                     <label className={styles.formLabel} htmlFor="date">Date</label>
-                    <input className={styles.formInput} type="date" name='date' id='date'  onBlur={handleValidation}/>
+                    <input className={styles.formInput} type="date" name='date' id='date' onChange={handleChange} onBlur={handleValidation} value={formData.date}/>
                     <p className={styles.formErrorMessage}>{errorMessages.date}</p>
                 </div>
                 <div className={styles.formGroup}>
                     <label className={styles.formLabel} htmlFor="category">Category</label>
-                    <select className={styles.formSelect} name='category' id='category' onBlur={handleValidation}>
+                    <select className={styles.formSelect} name='category' id='category' onChange={handleChange} onBlur={handleValidation} value={formData.category}>
                         <option value="">Select category</option>
                         <option value="housing">Housing</option>
                         <option value="utilities">Utilities</option>

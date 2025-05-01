@@ -1,0 +1,27 @@
+.listItem {
+    width: 100%;
+    height: auto;
+    display: flex;
+    background-color: var(--form-color);
+    border-radius: var(--border-radius-small);
+    padding: var(--spacing-small);
+}
+
+.itemContentGroup {
+    display: flex;
+    flex-basis: 22%;
+    align-items: center;
+    gap: var(--spacing-x-small);
+}
+
+.itemContentHeading {
+    font-weight: 600;
+}
+
+.itemButtonContainer {
+    flex-basis: 12%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: var(--spacing-x-small);
+}
