@@ -1,0 +1,19 @@
+.summaryContainer {
+    width: 95%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing-x-small);
+    background-color: var(--form-color);
+    border-radius: var(--border-radius-small);
+    padding: var(--spacing-small);
+}
+
+.summaryContainer h2 {
+    font-size: var(--font-medium);
+}
+
+.summaryContainer p {
+    font-size: var(--font-medium);
+}

@@ -74,9 +74,13 @@ const Form = ({ closeExpenseForm, setExpenses }) => {
         const hasErrors = Object.values(errorMessages).some(message => message !== "");
         if (hasEmptyFields || hasErrors) return;
 
+        // convert date to ISO 8601 format
+        const isoDate = new Date(formData.date).toISOString();
+
         const newExpense = {
             id: uuidv4(),
-            ...formData
+            ...formData,
+            date: isoDate
         }
 
         const existingExpenses = JSON.parse(localStorage.getItem("expenses")) || [];

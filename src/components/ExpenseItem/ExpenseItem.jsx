@@ -13,7 +13,7 @@ const ExpenseItem = ({ item }) => {
         </div>
         <div className={styles.itemContentGroup}>
             <p className={styles.itemContentHeading}>Date:</p>
-            <p className={styles.itemContentText}>{item.date}</p>
+            <p className={styles.itemContentText}>{item.date.slice(0, 10)}</p>
         </div>
         <div className={styles.itemContentGroup}>
             <p className={styles.itemContentHeading}>Category:</p>
@@ -21,10 +21,10 @@ const ExpenseItem = ({ item }) => {
         </div>
         <div className={styles.itemButtonContainer}>
             <button className='icon-button'>
-                <img src="/src/assets/icons/delete_FILL0.svg" alt="Delete icon" />
+                <img src="/assets/icons/delete_FILL0.svg" alt="Delete icon" />
             </button>
             <button className='icon-button'>
-                <img src="/src/assets/icons/edit_FILL0.svg" alt="Edit icon" />
+                <img src="/assets/icons/edit_FILL0.svg" alt="Edit icon" />
             </button>
         </div>
     </li>
