@@ -29,7 +29,7 @@ function App() {
     <>
       <Header openExpenseForm={ openExpenseForm }></Header>
       {displayForm && <FormModal closeExpenseForm={ closeExpenseForm } setExpenses={ setExpenses } />}
-      <Main expenses={ expenses }></Main>
+      <Main expenses={ expenses } setExpenses={ setExpenses }></Main>
       <Footer></Footer>
     </>
   )

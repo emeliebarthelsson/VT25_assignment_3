@@ -1,6 +1,10 @@
+import { useState } from 'react';
 import styles from './ExpenseItem.module.css'
+import DeleteModal from '../DeleteModal/DeleteModal';
 
-const ExpenseItem = ({ item }) => {
+const ExpenseItem = ({ item, handleDelete }) => {
+  const [displayDeleteModal, setDisplayDeleteModal] = useState(false);
+
   return (
     <li className={styles.listItem}>
         <div className={`${styles.itemContentGroup} ${styles.titleGroup}`}>
@@ -20,9 +24,15 @@ const ExpenseItem = ({ item }) => {
             <p className={styles.itemContentText}>{item.category}</p>
         </div>
         <div className={styles.itemButtonContainer}>
-            <button className='icon-button'>
+            <button className='icon-button' onClick={() => setDisplayDeleteModal(true)}>
                 <img src="/assets/icons/delete_FILL0.svg" alt="Delete icon" />
             </button>
+            {displayDeleteModal && (
+                <DeleteModal
+                    onCancel={() => setDisplayDeleteModal(false)}
+                    onConfirm={() => handleDelete(item.id)}
+                />
+            )}
             <button className='icon-button'>
                 <img src="/assets/icons/edit_FILL0.svg" alt="Edit icon" />
             </button>
