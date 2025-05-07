@@ -10,16 +10,17 @@ const Form = ({ closeExpenseForm, setExpenses, itemToEdit }) => {
         date: "", 
         category: ""
     });
+    const [formIsValid, setFormIsValid] = useState(true);
+    const [isTyping, setIsTyping] = useState(false);
+    const [successMessage, setSuccessMessage] = useState("");
 
     // validation
     const validateInput = (inputName, inputValue) => {
-        let isValid = true;
         const errorsObj = { ...errorMessages };
 
         if (inputName === "title") {
             if (!inputValue.trim()) {
                 errorsObj.title = "Please enter expense title"
-                isValid = false;
             } else {
                 errorsObj.title = "";
             }
@@ -28,10 +29,8 @@ const Form = ({ closeExpenseForm, setExpenses, itemToEdit }) => {
         if (inputName === "amount") {
             if (!inputValue.trim()) {
                 errorsObj.amount = "Please enter expense amount"
-                isValid = false;
             } else if (inputValue <= 0) {
                 errorsObj.amount = "Amount must be more than 0"
-                isValid = false;
             } else {
                 errorsObj.amount = "";
             }
@@ -40,7 +39,6 @@ const Form = ({ closeExpenseForm, setExpenses, itemToEdit }) => {
         if (inputName === "date") {
             if (!inputValue) {
                 errorsObj.date = "Please enter date for expense"
-                isValid = false;
             } else {
                 errorsObj.date = "";
             }
@@ -49,16 +47,15 @@ const Form = ({ closeExpenseForm, setExpenses, itemToEdit }) => {
         if (inputName === "category") {
             if (!inputValue) {
                 errorsObj.category = "Please enter expense category"
-                isValid = false;
             } else {
                 errorsObj.category = "";
             }
         }
         setErrorMessages(errorsObj);
-        isValid = true;
     }
 
     const handleChange = (e) => {
+        setIsTyping(true);
         const { name, value } = e.target;
         setFormData(prev => ({...prev, [name]: value}))
     }
@@ -85,10 +82,17 @@ const Form = ({ closeExpenseForm, setExpenses, itemToEdit }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const hasEmptyFields = Object.values(formData).some(value => !value.trim());
-        const hasErrors = Object.values(errorMessages).some(message => message !== "");
-        if (hasEmptyFields || hasErrors) return;
+        setIsTyping(false);
 
+        const hasEmptyFields = Object.values(formData).some(value => !value.trim());
+        const hasErrors = Object.values(errorMessages).some(value => value.trim());
+        if (hasEmptyFields || hasErrors) {
+            setFormIsValid(false);
+            return;
+        }
+
+        setFormIsValid(true)
+        
         // convert date to ISO 8601 format
         const isoDate = new Date(formData.date).toISOString();
 
@@ -111,6 +115,19 @@ const Form = ({ closeExpenseForm, setExpenses, itemToEdit }) => {
         localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
         setExpenses(updatedExpenses);
 
+        if (itemToEdit) {
+            setSuccessMessage("Edited successfully");
+            setTimeout(() => {
+                closeExpenseForm()
+            }, 2000);
+        } else {
+            setSuccessMessage("Expense added successfully");
+        }
+
+        setTimeout(() => {
+            setSuccessMessage("");
+        }, 3000);
+
         // clear form
         setFormData({
             title: "",
@@ -118,8 +135,6 @@ const Form = ({ closeExpenseForm, setExpenses, itemToEdit }) => {
             date: "",
             category: ""
         })
-
-        closeExpenseForm();
     }
 
     return(
@@ -128,7 +143,7 @@ const Form = ({ closeExpenseForm, setExpenses, itemToEdit }) => {
                 <h2>{itemToEdit ? "Edit Expense" : "Add New Expense"}</h2>
                 <div className={styles.formGroup}>
                     <label className={styles.formLabel} htmlFor="title">Title</label>
-                    <input className={styles.formInput} type="text" name='title' id='title' placeholder='Enter title' onChange={handleChange} onBlur={handleValidation} value={formData.title}/>
+                    <input className={styles.formInput} type="text" name='title' id='title' maxLength={50} placeholder='Enter title' onChange={handleChange} onBlur={handleValidation} value={formData.title}/>
                     <p className={styles.formErrorMessage}>{errorMessages.title}</p>
                 </div>
                 <div className={styles.formGroup}>
@@ -156,8 +171,10 @@ const Form = ({ closeExpenseForm, setExpenses, itemToEdit }) => {
                     <p className={styles.formErrorMessage}>{errorMessages.category}</p>
                 </div>
                 <div className={styles.formButtonContainer}>
+                    {!formIsValid && !isTyping && <p className={styles.formErrorMessage}>Please fill out the form</p>}
+                    {successMessage && <p className={styles.successMessage}>{successMessage}</p>}
                     <button type='button' className='secondary-button' onClick={closeExpenseForm}>Cancel</button>
-                    <button type='submit' className='primary-button'>{itemToEdit ? "Confirm Edit" : "Add"}</button>
+                    <button type='submit' className='primary-button'>{itemToEdit ? "Confirm" : "Add"}</button>
                 </div>
             </form>
         </div>

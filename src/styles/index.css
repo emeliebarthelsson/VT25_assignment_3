@@ -56,10 +56,19 @@ button {
 .icon-button {
   height: 48px;
   width: 48px;
+  background-color: transparent;
   border: none;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: var(--border-radius-small);
   font-size: var(--font-medium);
+}
+
+.icon-button:hover {
+  background-color: var(--hover-color);
+}
+
+.icon-button:active {
+  background-color: var(--active-color);
 }

@@ -60,8 +60,16 @@
     color: var(--error-color);
 }
 
+.successMessage {
+    height: 18px;
+    font-size: var(--font-small);
+    font-weight: 600;
+    color: var(--success-color);
+}
+
 .formButtonContainer {
     display: flex;
+    align-items: center;
     justify-content: flex-end;
     margin-top: var(--spacing-small);
     gap: var(--spacing-x-small);

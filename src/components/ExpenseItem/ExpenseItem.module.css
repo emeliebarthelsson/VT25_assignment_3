@@ -25,7 +25,6 @@
     display: flex;
     align-items: center;
     gap: var(--spacing-x-small);
-    padding-top: var(--spacing-small);
 }
 
 @media screen and (min-width: 600px) {

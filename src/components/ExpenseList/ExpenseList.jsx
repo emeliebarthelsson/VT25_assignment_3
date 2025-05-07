@@ -10,11 +10,15 @@ const ExpenseList = ({ expenses, setExpenses, setItemToEdit, openExpenseForm }) 
 
     return (
         <div className={styles.listContainer}>
-            <ul className={styles.list}>
-                {expenses.map((item) => (
-                    <ExpenseItem key={item.id} item={item} handleDelete={handleDelete} setItemToEdit={ setItemToEdit } openExpenseForm={ openExpenseForm } />
-                ))}
-            </ul>
+            {expenses.length === 0 ? (
+                <p className={styles.emptyMessage}>No expenses in this category</p>
+            ) : (
+                <ul className={styles.list}>
+                    {expenses.map((item) => (
+                        <ExpenseItem key={item.id} item={item} handleDelete={handleDelete} setItemToEdit={ setItemToEdit } openExpenseForm={ openExpenseForm } />
+                    ))}
+                </ul>
+            )}
         </div>
     )
 }

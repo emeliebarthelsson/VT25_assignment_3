@@ -9,6 +9,8 @@ function App() {
   const [displayForm, setDisplayForm] = useState(false);
   const [expenses, setExpenses] = useState([]);
   const [itemToEdit, setItemToEdit] = useState(null);
+  const [filterCategory, setFilterCategory] = useState("");
+  const visibleExpenses = filterCategory ? expenses.filter(item => item.category === filterCategory) : expenses;
   
   const openExpenseForm = () => {
     setDisplayForm(true);
@@ -29,7 +31,7 @@ function App() {
     <>
       <Header openExpenseForm={ openExpenseForm } setItemToEdit={ setItemToEdit }></Header>
       {displayForm && <FormModal closeExpenseForm={ closeExpenseForm } setExpenses={ setExpenses } itemToEdit={ itemToEdit }/>}
-      <Main expenses={ expenses } setExpenses={ setExpenses } setItemToEdit={ setItemToEdit } openExpenseForm={ openExpenseForm }></Main>
+      <Main expenses={ visibleExpenses } setExpenses={ setExpenses } setItemToEdit={ setItemToEdit } openExpenseForm={ openExpenseForm } filterCategory={ filterCategory } setFilterCategory={ setFilterCategory }></Main>
       <Footer></Footer>
     </>
   )

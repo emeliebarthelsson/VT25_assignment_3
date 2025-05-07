@@ -18,6 +18,9 @@
     /****** error color ******/
     --error-color: #e52d2d;
 
+    /****** success color ******/
+    --success-color: #254609;
+
     /****** interaction ******/
     --hover-color: #f5f5f5;
     --active-color: #ebebeb;

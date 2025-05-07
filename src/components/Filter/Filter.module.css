@@ -1,0 +1,26 @@
+.filterContainer {
+    height: auto;
+    width: 95%;
+    max-width: 1024px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.filter {
+    height: 40px;
+    width: auto;
+    background-color: var(--form-color);
+    padding: 0 var(--spacing-x-small);
+    border: none;
+    border-radius: var(--border-radius-small);
+    font-family: inherit;
+    font-size: var(--font-medium);
+}
+
+.filter:hover {
+    background-color: var(--hover-color);
+}
+
+.filter:focus {
+    outline: none;
+}

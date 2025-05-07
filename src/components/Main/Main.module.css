@@ -13,9 +13,16 @@
     margin-top: var(--spacing-x-large);
 }
 
-.expenses {
+.filter {
     width: 100%;
     display: flex;
     justify-content: center;
     margin-top: var(--spacing-x-large);
+}
+
+.expenses {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: var(--spacing-small);
 }
