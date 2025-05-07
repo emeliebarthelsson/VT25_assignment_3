@@ -1,8 +1,7 @@
-import { useEffect, useState } from 'react';
 import ExpenseItem from '../ExpenseItem/ExpenseItem';
 import styles from './ExpenseList.module.css'
 
-const ExpenseList = ({ expenses, setExpenses }) => {
+const ExpenseList = ({ expenses, setExpenses, setItemToEdit, openExpenseForm }) => {
     const handleDelete = (id) => {
         const updatedExpenses = expenses.filter(item => item.id !== id)
         localStorage.setItem("expenses", JSON.stringify(updatedExpenses))
@@ -13,7 +12,7 @@ const ExpenseList = ({ expenses, setExpenses }) => {
         <div className={styles.listContainer}>
             <ul className={styles.list}>
                 {expenses.map((item) => (
-                    <ExpenseItem key={item.id} item={item} handleDelete={handleDelete}/>
+                    <ExpenseItem key={item.id} item={item} handleDelete={handleDelete} setItemToEdit={ setItemToEdit } openExpenseForm={ openExpenseForm } />
                 ))}
             </ul>
         </div>

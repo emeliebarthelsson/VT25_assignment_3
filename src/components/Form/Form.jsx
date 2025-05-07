@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import styles from './Form.module.css'
 import { v4 as uuidv4 } from 'uuid';
 
-const Form = ({ closeExpenseForm, setExpenses }) => {
+const Form = ({ closeExpenseForm, setExpenses, itemToEdit }) => {
     const [errorMessages, setErrorMessages] = useState({});
     const [formData, setFormData] = useState({
         title: "",
@@ -68,6 +68,21 @@ const Form = ({ closeExpenseForm, setExpenses }) => {
         validateInput(name, value);
     }
 
+    useEffect(() => {
+        if (itemToEdit) {
+            const { date, ...rest} = itemToEdit;
+            const formattedDate = date.slice(0, 10);
+            setFormData({...rest, date: formattedDate});
+        } else {
+            setFormData({
+                title: "",
+                amount: "",
+                date: "",
+                category: ""
+            })
+        }
+    }, [itemToEdit])
+
     const handleSubmit = (e) => {
         e.preventDefault();
         const hasEmptyFields = Object.values(formData).some(value => !value.trim());
@@ -77,14 +92,22 @@ const Form = ({ closeExpenseForm, setExpenses }) => {
         // convert date to ISO 8601 format
         const isoDate = new Date(formData.date).toISOString();
 
-        const newExpense = {
-            id: uuidv4(),
-            ...formData,
-            date: isoDate
+        const existingExpenses = JSON.parse(localStorage.getItem("expenses")) || [];
+        let updatedExpenses;
+
+        if (itemToEdit) {
+            updatedExpenses = existingExpenses.map((expense) => (
+                expense.id === itemToEdit.id ? {...itemToEdit, ...formData, date: isoDate} : expense
+            ))
+        } else {
+            const newExpense = {
+                id: uuidv4(),
+                ...formData,
+                date: isoDate
+            }
+            updatedExpenses = [...existingExpenses, newExpense];
         }
 
-        const existingExpenses = JSON.parse(localStorage.getItem("expenses")) || [];
-        const updatedExpenses = [...existingExpenses, newExpense];
         localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
         setExpenses(updatedExpenses);
 
@@ -102,7 +125,7 @@ const Form = ({ closeExpenseForm, setExpenses }) => {
     return(
         <div className={styles.formContainer}>
             <form className={styles.form} onSubmit={handleSubmit}>
-                <h2>Add expense</h2>
+                <h2>{itemToEdit ? "Edit Expense" : "Add New Expense"}</h2>
                 <div className={styles.formGroup}>
                     <label className={styles.formLabel} htmlFor="title">Title</label>
                     <input className={styles.formInput} type="text" name='title' id='title' placeholder='Enter title' onChange={handleChange} onBlur={handleValidation} value={formData.title}/>
@@ -134,7 +157,7 @@ const Form = ({ closeExpenseForm, setExpenses }) => {
                 </div>
                 <div className={styles.formButtonContainer}>
                     <button type='button' className='secondary-button' onClick={closeExpenseForm}>Cancel</button>
-                    <button type='submit' className='primary-button'>Add</button>
+                    <button type='submit' className='primary-button'>{itemToEdit ? "Confirm Edit" : "Add"}</button>
                 </div>
             </form>
         </div>

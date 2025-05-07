@@ -2,7 +2,7 @@ import ExpenseList from '../ExpenseList/ExpenseList';
 import TotalExpenses from '../TotalExpenses/TotalExpenses';
 import styles from './Main.module.css'
 
-const Main = ({ expenses, setExpenses }) => {
+const Main = ({ expenses, setExpenses, setItemToEdit, openExpenseForm }) => {
     return(
         <>
             <main className={styles.main}>
@@ -10,7 +10,7 @@ const Main = ({ expenses, setExpenses }) => {
                     <TotalExpenses expenses={ expenses } />
                 </section>
                 <section className={styles.expenses}>
-                    <ExpenseList expenses={ expenses } setExpenses={ setExpenses } />
+                    <ExpenseList expenses={ expenses } setExpenses={ setExpenses } setItemToEdit={ setItemToEdit } openExpenseForm={ openExpenseForm } />
                 </section>
             </main>
         </>

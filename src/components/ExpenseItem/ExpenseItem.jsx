@@ -2,7 +2,7 @@ import { useState } from 'react';
 import styles from './ExpenseItem.module.css'
 import DeleteModal from '../DeleteModal/DeleteModal';
 
-const ExpenseItem = ({ item, handleDelete }) => {
+const ExpenseItem = ({ item, handleDelete, setItemToEdit, openExpenseForm }) => {
   const [displayDeleteModal, setDisplayDeleteModal] = useState(false);
 
   return (
@@ -33,7 +33,10 @@ const ExpenseItem = ({ item, handleDelete }) => {
                     onConfirm={() => handleDelete(item.id)}
                 />
             )}
-            <button className='icon-button'>
+            <button className='icon-button' onClick={() => {
+                setItemToEdit(item)
+                openExpenseForm()
+            }}>
                 <img src="/assets/icons/edit_FILL0.svg" alt="Edit icon" />
             </button>
         </div>
