@@ -2,7 +2,7 @@
     /****** background ******/
     --background-color: #FFFFFF;
 
-    --form-color: #FFFFFF;
+    --form-color: #fafafa;
 
     --border-color: #242424;
 
@@ -56,6 +56,7 @@
 @media (prefers-color-scheme: dark) {
     :root {
         --background-color: #242424;
+        --form-color: #FFFFFF;
         --font-color: #FFFFFF;
     }
 }
