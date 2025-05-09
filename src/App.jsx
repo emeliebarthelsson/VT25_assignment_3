@@ -9,8 +9,11 @@ function App() {
   const [displayForm, setDisplayForm] = useState(false);
   const [expenses, setExpenses] = useState([]);
   const [itemToEdit, setItemToEdit] = useState(null);
-  const [filterCategory, setFilterCategory] = useState("");
-  const visibleExpenses = filterCategory ? expenses.filter(item => item.category === filterCategory) : expenses;
+  const [filterMonth, setFilterMonth] = useState("");
+  const visibleExpenses = filterMonth ? expenses.filter(item => {
+    const month = new Date(item.date).toISOString().slice(5, 7)
+    return month === filterMonth
+  }) : expenses;
   
   const openExpenseForm = () => {
     setDisplayForm(true);
@@ -31,7 +34,7 @@ function App() {
     <>
       <Header openExpenseForm={ openExpenseForm } setItemToEdit={ setItemToEdit }></Header>
       {displayForm && <FormModal closeExpenseForm={ closeExpenseForm } setExpenses={ setExpenses } itemToEdit={ itemToEdit }/>}
-      <Main expenses={ visibleExpenses } setExpenses={ setExpenses } setItemToEdit={ setItemToEdit } openExpenseForm={ openExpenseForm } filterCategory={ filterCategory } setFilterCategory={ setFilterCategory }></Main>
+      <Main expenses={ visibleExpenses } setExpenses={ setExpenses } setItemToEdit={ setItemToEdit } openExpenseForm={ openExpenseForm } filterMonth={ filterMonth } setFilterMonth={ setFilterMonth }></Main>
       <Footer></Footer>
     </>
   )

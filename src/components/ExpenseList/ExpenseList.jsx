@@ -11,7 +11,7 @@ const ExpenseList = ({ expenses, setExpenses, setItemToEdit, openExpenseForm }) 
     return (
         <div className={styles.listContainer}>
             {expenses.length === 0 ? (
-                <p className={styles.emptyMessage}>No expenses in this category</p>
+                <p className={styles.emptyMessage}>No expenses in this month</p>
             ) : (
                 <ul className={styles.list}>
                     {expenses.map((item) => (

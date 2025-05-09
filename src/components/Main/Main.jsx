@@ -3,7 +3,7 @@ import Filter from '../Filter/Filter';
 import TotalExpenses from '../TotalExpenses/TotalExpenses';
 import styles from './Main.module.css'
 
-const Main = ({ expenses, setExpenses, setItemToEdit, openExpenseForm, filterCategory, setFilterCategory }) => {
+const Main = ({ expenses, setExpenses, setItemToEdit, openExpenseForm, filterMonth, setFilterMonth }) => {
     return(
         <>
             <main className={styles.main}>
@@ -11,7 +11,7 @@ const Main = ({ expenses, setExpenses, setItemToEdit, openExpenseForm, filterCat
                     <TotalExpenses expenses={ expenses } />
                 </section>
                 <section className={styles.filter}>
-                    <Filter filterCategory={ filterCategory } setFilterCategory={ setFilterCategory }/>
+                    <Filter filterMonth={ filterMonth } setFilterMonth={ setFilterMonth }/>
                 </section>
                 <section className={styles.expenses}>
                     <ExpenseList expenses={ expenses } setExpenses={ setExpenses } setItemToEdit={ setItemToEdit } openExpenseForm={ openExpenseForm } />
