@@ -58,7 +58,7 @@
     }
 }
 
-@media screen and (min-width: 820px) {
+@media screen and (min-width: 975px) {
     .itemContentGroup {
         flex-direction: row;
         align-items: center;

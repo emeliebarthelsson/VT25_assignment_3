@@ -14,6 +14,7 @@ Purpose of this assignment:
 https://github.com/emeliebarthelsson/VT25_assignment_3
 
 ## Netlify
+https://ubiquitous-semifreddo-543599.netlify.app/
 
 ## Author
 Emelie Barthelsson 
