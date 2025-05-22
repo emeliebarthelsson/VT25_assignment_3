@@ -3,6 +3,7 @@ import styles from './ExpenseItem.module.css'
 import DeleteModal from '../DeleteModal/DeleteModal';
 
 const ExpenseItem = ({ item, handleDelete, setItemToEdit, openExpenseForm }) => {
+  // declare state variable
   const [displayDeleteModal, setDisplayDeleteModal] = useState(false);
 
   return (
@@ -27,6 +28,7 @@ const ExpenseItem = ({ item, handleDelete, setItemToEdit, openExpenseForm }) => 
             <button className='icon-button' onClick={() => setDisplayDeleteModal(true)}>
                 <img src="/assets/icons/delete_FILL0.svg" alt="Delete icon" />
             </button>
+            {/* delete modal */}
             {displayDeleteModal && (
                 <DeleteModal
                     onCancel={() => setDisplayDeleteModal(false)}

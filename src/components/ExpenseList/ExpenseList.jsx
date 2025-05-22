@@ -2,6 +2,7 @@ import ExpenseItem from '../ExpenseItem/ExpenseItem';
 import styles from './ExpenseList.module.css'
 
 const ExpenseList = ({ expenses, setExpenses, setItemToEdit, openExpenseForm }) => {
+    // delete function
     const handleDelete = (id) => {
         const updatedExpenses = expenses.filter(item => item.id !== id)
         localStorage.setItem("expenses", JSON.stringify(updatedExpenses))

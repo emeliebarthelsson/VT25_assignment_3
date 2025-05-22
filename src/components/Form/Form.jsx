@@ -3,6 +3,7 @@ import styles from './Form.module.css'
 import { v4 as uuidv4 } from 'uuid';
 
 const Form = ({ closeExpenseForm, setExpenses, itemToEdit }) => {
+    // declare state variables
     const [errorMessages, setErrorMessages] = useState({});
     const [formData, setFormData] = useState({
         title: "",
@@ -10,8 +11,6 @@ const Form = ({ closeExpenseForm, setExpenses, itemToEdit }) => {
         date: "", 
         category: ""
     });
-    const [formIsValid, setFormIsValid] = useState(true);
-    const [isTyping, setIsTyping] = useState(false);
     const [successMessage, setSuccessMessage] = useState("");
 
     // validation
@@ -29,7 +28,7 @@ const Form = ({ closeExpenseForm, setExpenses, itemToEdit }) => {
         if (inputName === "amount") {
             if (!inputValue.trim()) {
                 errorsObj.amount = "Please enter expense amount"
-            } else if (inputValue <= 0) {
+            } else if (Number(inputValue) <= 0) {
                 errorsObj.amount = "Amount must be more than 0"
             } else {
                 errorsObj.amount = "";
@@ -54,17 +53,20 @@ const Form = ({ closeExpenseForm, setExpenses, itemToEdit }) => {
         setErrorMessages(errorsObj);
     }
 
+    // update state and validate when user is typing
     const handleChange = (e) => {
-        setIsTyping(true);
         const { name, value } = e.target;
         setFormData(prev => ({...prev, [name]: value}))
+        validateInput(name, value)
     }
 
+    // validate on blur
     const handleValidation = (e) => {
         const { name, value } = e.target;
         validateInput(name, value);
     }
 
+    // populate edit form
     useEffect(() => {
         if (itemToEdit) {
             const { date, ...rest} = itemToEdit;
@@ -80,18 +82,29 @@ const Form = ({ closeExpenseForm, setExpenses, itemToEdit }) => {
         }
     }, [itemToEdit])
 
+    // submit function
     const handleSubmit = (e) => {
         e.preventDefault();
-        setIsTyping(false);
 
+        // check if empty fields or fields with error
         const hasEmptyFields = Object.values(formData).some(value => !value.trim());
         const hasErrors = Object.values(errorMessages).some(value => value.trim());
+
         if (hasEmptyFields || hasErrors) {
-            setFormIsValid(false);
+            // focus on invalid field
+            const firstInvalidField = Object.keys(formData).find(
+                key => !formData[key].trim() || errorMessages[key]
+            );
+
+            if (firstInvalidField) {
+                const fieldElement = document.getElementById(firstInvalidField);
+                if (fieldElement) {
+                    fieldElement.focus();
+                }
+            }
+
             return;
         }
-
-        setFormIsValid(true)
         
         // convert date to ISO 8601 format
         const isoDate = new Date(formData.date).toISOString();
@@ -99,6 +112,7 @@ const Form = ({ closeExpenseForm, setExpenses, itemToEdit }) => {
         const existingExpenses = JSON.parse(localStorage.getItem("expenses")) || [];
         let updatedExpenses;
 
+        // edit or create new expense
         if (itemToEdit) {
             updatedExpenses = existingExpenses.map((expense) => (
                 expense.id === itemToEdit.id ? {...itemToEdit, ...formData, date: isoDate} : expense
@@ -112,9 +126,11 @@ const Form = ({ closeExpenseForm, setExpenses, itemToEdit }) => {
             updatedExpenses = [...existingExpenses, newExpense];
         }
 
+        // update localStorage and state
         localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
         setExpenses(updatedExpenses);
 
+        // show success message
         if (itemToEdit) {
             setSuccessMessage("Edited successfully");
             setTimeout(() => {
@@ -139,22 +155,22 @@ const Form = ({ closeExpenseForm, setExpenses, itemToEdit }) => {
 
     return(
         <div className={styles.formContainer}>
-            <form className={styles.form} onSubmit={handleSubmit}>
+            <form className={styles.form} onSubmit={handleSubmit} noValidate>
                 <h2>{itemToEdit ? "Edit Expense" : "Add New Expense"}</h2>
                 <div className={styles.formGroup}>
                     <label className={styles.formLabel} htmlFor="title">Title</label>
-                    <input className={styles.formInput} type="text" name='title' id='title' maxLength={50} placeholder='Enter title' onChange={handleChange} onBlur={handleValidation} value={formData.title}/>
-                    <p className={styles.formErrorMessage}>{errorMessages.title}</p>
+                    <input className={styles.formInput} type="text" name='title' id='title' maxLength={50} placeholder='Enter title' onChange={handleChange} onBlur={handleValidation} value={formData.title} autoFocus/>
+                    <p className={styles.formErrorMessage} aria-live="assertive">{errorMessages.title}</p>
                 </div>
                 <div className={styles.formGroup}>
                     <label className={styles.formLabel} htmlFor="amount">Amount</label>
                     <input className={styles.formInput} type="number" name='amount' id='amount' placeholder='Enter amount' onChange={handleChange} onBlur={handleValidation} value={formData.amount}/>
-                    <p className={styles.formErrorMessage}>{errorMessages.amount}</p>
+                    <p className={styles.formErrorMessage} aria-live="assertive">{errorMessages.amount}</p>
                 </div>
                 <div className={styles.formGroup}>
                     <label className={styles.formLabel} htmlFor="date">Date</label>
                     <input className={styles.formInput} type="date" name='date' id='date' onChange={handleChange} onBlur={handleValidation} value={formData.date}/>
-                    <p className={styles.formErrorMessage}>{errorMessages.date}</p>
+                    <p className={styles.formErrorMessage} aria-live="assertive">{errorMessages.date}</p>
                 </div>
                 <div className={styles.formGroup}>
                     <label className={styles.formLabel} htmlFor="category">Category</label>
@@ -168,11 +184,10 @@ const Form = ({ closeExpenseForm, setExpenses, itemToEdit }) => {
                         <option value="entertainment">Entertainment</option>
                         <option value="other">Other</option>
                     </select>
-                    <p className={styles.formErrorMessage}>{errorMessages.category}</p>
+                    <p className={styles.formErrorMessage} aria-live="assertive">{errorMessages.category}</p>
                 </div>
                 <div className={styles.formButtonContainer}>
-                    {!formIsValid && !isTyping && <p className={styles.formErrorMessage}>Please fill out the form</p>}
-                    {successMessage && <p className={styles.successMessage}>{successMessage}</p>}
+                    {successMessage && <p className={styles.successMessage} aria-live="polite">{successMessage}</p>}
                     <button type='button' className='secondary-button' onClick={closeExpenseForm}>Cancel</button>
                     <button type='submit' className='primary-button'>{itemToEdit ? "Confirm" : "Add"}</button>
                 </div>

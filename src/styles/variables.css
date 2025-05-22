@@ -1,6 +1,6 @@
 :root {
     /****** background ******/
-    --background-color: #FFFFFF;
+    --background-color: #d4d4d4;
 
     --form-color: #fafafa;
 
@@ -53,6 +53,7 @@
     --heading-x-large: 3rem;
 }
 
+/****** dark mode ******/
 @media (prefers-color-scheme: dark) {
     :root {
         --background-color: #242424;
